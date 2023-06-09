@@ -2,11 +2,11 @@
 
 Variables for GOI expression
 
-- condition : chr  "12h_Dd" "12h_Dd" "12h_Dd" "12h_Dd" ...
-- Gene      : chr  "Z1" "Z2" "X3" "Y2" ...
-- mean_count: num  856 1078 398 34220 1358 ...
-- time      : chr  "12h" "12h" "12h" "12h" ...
-- treatment: 2 treatments & control (no control in this expt)
+- `condition`: Redundant with `time_treatment`
+- `Gene`: Letter = class, digit = gene
+- `mean_count`: RNAseq
+- `time`: How long the treatment was
+- `treatment`: 2 treatments & control (no control in this expt)
   - Dd:    Diff,    Treatment
   - Dx:    Diff, No Treatment
   - xd: No Diff,    Treatment
