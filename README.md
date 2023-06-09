@@ -15,7 +15,7 @@ Variables for GOI expression
 
 | `treatment` | Differentiation | Treatment |
 |-|-|-|
-| Dd | Yes | Yes |
-| Dx | Yes | No | 
-| xd | No | Yes |
-| xx | No | No |
+| Dd | `TRUE` | `TRUE` |
+| Dx | `TRUE` | `FALSE` | 
+| xd | `FALSE` | `TRUE` |
+| xx | `FALSE` | `FALSE` |
