@@ -5,7 +5,7 @@ Variables for GOI expression
 - `condition`: Redundant with `time_treatment`
 - `Gene`: Letter = class, digit = gene
 - `mean_count`: RNAseq
-- `time`: How long the treatment was
+- `time`: How long the treatment was given for (hours)
 - `treatment`: 2 treatments & control (no control in this expt)
   - Dd:    Diff,    Treatment
   - Dx:    Diff, No Treatment
