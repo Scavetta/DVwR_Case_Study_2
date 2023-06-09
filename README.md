@@ -13,7 +13,7 @@ Variables for GOI expression
   - xx: No Diff, No Treatment 
 
 
-| Name | Differentiation | Treatment |
+| `treatment` | Differentiation | Treatment |
 |-|-|-|
 | Dd | Yes | Yes |
 | Dx | Yes | No | 
