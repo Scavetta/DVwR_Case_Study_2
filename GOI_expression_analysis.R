@@ -4,32 +4,74 @@
 
 # Load packages
 library(tidyverse)
+source("functions.R")
 
-# Import data:
+# Import data ----
 jelena <- read.csv("GOI_expression.csv")
+jelena_rep <- read.csv("GOI_expression_rep.csv")
 
-# Expore data:
+# Expore data ----
 str(jelena)
 summary(jelena)
 
-# Data munging:
-# break up treatement column into two new variables:
-jelena$diff <- jelena$treatment %in% c("Dd", "Dx")
-jelena$trt <- jelena$treatment %in% c("Dd", "xd")
+str(jelena_rep)
+summary(jelena_rep)
 
-# For genes:
-unique(jelena$Gene)
-# jelena$class <- str_extract(jelena$Gene, ".{1}")
-# str_extract(jelena$Gene, "^.{1}")
-jelena$class <- str_extract(jelena$Gene, "\\D")
 
-# For time: This should be numeric
-unique(jelena$time)
-# str_remove(jelena$time, ".{1}$")
-jelena$time <- as.numeric(str_remove(jelena$time, "\\D")) # REmove any non-digit characters (i.e. "h")
+# Data munging ----
+jelena <- data_munging(jelena)
+jelena_rep <- data_munging(jelena_rep)
 
-# Change name of column
-names(jelena)[2] <- "gene"
+# Plotting ----
+## Plot type 0 (heat map)
+# x = condition
+# y = gene
+# color = mean_count
+# geom: tile, raster
 
-# Plotting:
+
+ggplot(jelena, aes(condition, gene, fill = mean_count)) +
+    geom_tile()
+
+## Plot type 1 ----
+jelena |>  
+    # filter( ..... ) |> 
+    ggplot(aes(time, mean_count, color = gene)) + 
+    geom_line() + 
+    geom_point() + 
+    facet_wrap(~ treatment)
+
+jelena |>  
+    ggplot(aes(time, mean_count, color = gene)) + 
+    geom_line() + 
+    geom_point() + 
+    facet_grid(class ~ treatment)
+
+jelena |> 
+    group_split(class)
+
+## Plot type 2
+# Using paired color set
+RColorBrewer::display.brewer.pal(4, "Paired")
+as.factor(jelena$treatment)
+# Hue for differentiation
+# Diff = Blue
+# No Diff = Green
+
+# Lightness for treatment
+# Trt = Dark color
+# No Trt = light color
+
+myColors <- RColorBrewer::brewer.pal(4, "Paired")[c(2,1,4,3)]
+
+munsell::plot_hex(myColors)
+
+names(myColors) <- c("Dd", "Dx", "xd", "xx")
+
+
+ggplot(jelena, aes(time, mean_count, color = treatment)) +
+    geom_line() +
+    geom_point() + 
+    scale_color_manual(values = myColors) +
+    facet_grid(. ~ gene)
 
